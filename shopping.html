@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>E-commerce Product Page</title>
+    <style>
+        body {
+            background: #f0f4f8;
+            font-family: Arial;
+            padding: 20px;
+        }
+
+        select {
+            background: #ffffff;
+            padding: 5px;
+        }
+
+        li {
+            background: #e3f2fd;
+            margin: 5px;
+            padding: 6px;
+            list-style: none;
+        }
+    </style>
+</head>
+<body>
+
+<h3>Products</h3>
+
+<select onchange="applyFilter(this.value)">
+    <option value="all">All</option>
+    <option value="low">Price: Low to High</option>
+    <option value="high">Price: High to Low</option>
+    <option value="cheap">Below 500</option>
+</select>
+
+<ul id="list"></ul>
+
+<script>
+    const products = [
+        { name: "Laptop", price: 60000 },
+        { name: "Headphones", price: 2000 },
+        { name: "Mouse", price: 400 },
+        { name: "Keyboard", price: 800 }
+    ];
+
+    function show(items) {
+        list.innerHTML = "";
+        items.forEach(p => {
+            list.innerHTML += `<li>${p.name} - ₹${p.price}</li>`;
+        });
+    }
+
+    function applyFilter(value) {
+        let result = [...products];
+
+        if (value === "low")
+            result.sort((a, b) => a.price - b.price);
+
+        if (value === "high")
+            result.sort((a, b) => b.price - a.price);
+
+        if (value === "cheap")
+            result = result.filter(p => p.price < 500);
+
+        show(result);
+    }
+
+    show(products);
+</script>
+
+</body>
+</html>
